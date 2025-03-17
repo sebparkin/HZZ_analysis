@@ -1,0 +1,9 @@
+celery
+uproot
+numpy
+matplotlib
+matplotlib_inline
+vector
+ipython
+requests
+aiohttp

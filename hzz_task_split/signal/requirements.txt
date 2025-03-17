@@ -1,0 +1,8 @@
+celery
+uproot
+numpy
+vector
+ipython
+requests
+aiohttp
+pyarrow

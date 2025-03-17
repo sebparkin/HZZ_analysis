@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: celery-task-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: task-runner
+        image: sebparkin/celery-worker:latest
+        command: ["python", "./run_split_tasks.py"]
+      restartPolicy: Never

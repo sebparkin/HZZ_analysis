@@ -1,0 +1,9 @@
+numpy
+requests
+aiohttp
+pyarrow
+matplotlib
+matplotlib_inline
+ipython
+awkward
+pandas

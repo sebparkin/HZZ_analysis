@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hzz-plot
+spec:
+  template:
+    spec:
+      containers:
+      - name: hzz-plot
+        image: sebparkin/hzz_plot  # Or your custom image
+        command: ["python", "./saveplot.py"]
+        volumeMounts:
+          - name: hzz-data
+            mountPath: /app/data
+      restartPolicy: Never
+      volumes:
+        - name: hzz-data
+          persistentVolumeClaim:
+            claimName: hzz-pvc

@@ -1,0 +1,79 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-task-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: data-runner
+        image: sebparkin/hzz_data:latest
+        command: ["python", "./HZZ_Analysis.py"]
+        volumeMounts:
+          - name: hzz-data
+            mountPath: /app/data
+      restartPolicy: Never
+      volumes:
+        - name: hzz-data
+          persistentVolumeClaim:
+            claimName: hzz-pvc
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: signal-task-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: signal-runner
+        image: sebparkin/hzz_signal:latest
+        command: ["python", "./HZZ_Analysis.py"]
+        volumeMounts:
+          - name: hzz-data
+            mountPath: /app/data
+      restartPolicy: Never
+      volumes:
+        - name: hzz-data
+          persistentVolumeClaim:
+            claimName: hzz-pvc
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: zttbar-task-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: zttbar-runner
+        image: sebparkin/hzz_zttbar:latest
+        command: ["python", "./HZZ_Analysis.py"]
+        volumeMounts:
+          - name: hzz-data
+            mountPath: /app/data
+      restartPolicy: Never
+      volumes:
+        - name: hzz-data
+          persistentVolumeClaim:
+            claimName: hzz-pvc
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: zz-task-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: zz-runner
+        image: sebparkin/hzz_zz:latest
+        command: ["python", "./HZZ_Analysis.py"]
+        volumeMounts:
+          - name: hzz-data
+            mountPath: /app/data
+      restartPolicy: Never
+      volumes:
+        - name: hzz-data
+          persistentVolumeClaim:
+            claimName: hzz-pvc

@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: celery-task-runner
+spec:
+  template:
+    spec:
+      containers:
+      - name: task-runner
+        image: sebparkin/hzz_task:latest
+        command: ["python", "./HZZ_Analysis.py"]
+        volumeMounts:
+          - name: hzz-figures
+            mountPath: /app/figures
+      restartPolicy: Never
+      volumes:
+        - name: hzz-figures
+          persistentVolumeClaim:
+            claimName: hzz-pvc
+

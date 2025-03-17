@@ -1,0 +1,152 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-1
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-1
+    spec:
+      containers:
+      - name: rabbitmq-1
+        image: rabbitmq:latest
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        volumeMounts:
+        - name: hzz-data
+          mountPath: /app/data
+      volumes:
+      - name: hzz-data
+        persistentVolumeClaim:
+          claimName: hzz-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-1
+spec:
+  ports:
+  - port: 5672
+  selector:
+    app: rabbitmq-1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-2
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-2
+    spec:
+      containers:
+      - name: rabbitmq-2
+        image: rabbitmq:latest
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        volumeMounts:
+        - name: hzz-data
+          mountPath: /app/data
+      volumes:
+      - name: hzz-data
+        persistentVolumeClaim:
+          claimName: hzz-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-2
+spec:
+  ports:
+  - port: 5672
+  selector:
+    app: rabbitmq-2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-3
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-3
+    spec:
+      containers:
+      - name: rabbitmq-3
+        image: rabbitmq:latest
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        volumeMounts:
+        - name: hzz-data
+          mountPath: /app/data
+      volumes:
+      - name: hzz-data
+        persistentVolumeClaim:
+          claimName: hzz-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-3
+spec:
+  ports:
+  - port: 5672
+  selector:
+    app: rabbitmq-3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-4
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-4
+    spec:
+      containers:
+      - name: rabbitmq-4
+        image: rabbitmq:latest
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        volumeMounts:
+        - name: hzz-data
+          mountPath: /app/data
+      volumes:
+      - name: hzz-data
+        persistentVolumeClaim:
+          claimName: hzz-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-4
+spec:
+  ports:
+  - port: 5672
+  selector:
+    app: rabbitmq-4
+---

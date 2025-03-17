@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-worker
+spec:
+  replicas: 1  # Number of workers for parallel processing
+  selector:
+    matchLabels:
+      app: data-worker
+  template:
+    metadata:
+      labels:
+        app: data-worker
+    spec:
+      securityContext:
+        runAsUser: 1000    # Non-root user ID
+        runAsGroup: 1000   # Non-root group ID
+        fsGroup: 1000 
+      containers:
+      - name: data-worker
+        image: sebparkin/hzz_data:latest
+        env:
+        - name: CELERY_BROKER_URL
+          value: "pyamqp://guest@rabbitmq"
+        - name: CELERY_RESULT_BACKEND
+          value: "rpc://"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signal-worker
+spec:
+  replicas: 1  # Number of workers for parallel processing
+  selector:
+    matchLabels:
+      app: signal-worker
+  template:
+    metadata:
+      labels:
+        app: signal-worker
+    spec:
+      securityContext:
+        runAsUser: 1000    # Non-root user ID
+        runAsGroup: 1000   # Non-root group ID
+        fsGroup: 1000 
+      containers:
+      - name: signal-worker
+        image: sebparkin/hzz_signal:latest
+        env:
+        - name: CELERY_BROKER_URL
+          value: "pyamqp://guest@rabbitmq"
+        - name: CELERY_RESULT_BACKEND
+          value: "rpc://"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zttbar-worker
+spec:
+  replicas: 1  # Number of workers for parallel processing
+  selector:
+    matchLabels:
+      app: zttbar-worker
+  template:
+    metadata:
+      labels:
+        app: zttbar-worker
+    spec:
+      securityContext:
+        runAsUser: 1000    # Non-root user ID
+        runAsGroup: 1000   # Non-root group ID
+        fsGroup: 1000 
+      containers:
+      - name: zttbar-worker
+        image: sebparkin/hzz_zttbar:latest
+        env:
+        - name: CELERY_BROKER_URL
+          value: "pyamqp://guest@rabbitmq"
+        - name: CELERY_RESULT_BACKEND
+          value: "rpc://"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zz-worker
+spec:
+  replicas: 1  # Number of workers for parallel processing
+  selector:
+    matchLabels:
+      app: zz-worker
+  template:
+    metadata:
+      labels:
+        app: zz-worker
+    spec:
+      securityContext:
+        runAsUser: 1000    # Non-root user ID
+        runAsGroup: 1000   # Non-root group ID
+        fsGroup: 1000 
+      containers:
+      - name: zz-worker
+        image: sebparkin/hzz_zz:latest
+        env:
+        - name: CELERY_BROKER_URL
+          value: "pyamqp://guest@rabbitmq"
+        - name: CELERY_RESULT_BACKEND
+          value: "rpc://"
