@@ -14,6 +14,9 @@ docker service create --name rabbitmq --replicas 1 rabbitmq:latest
 kubectl apply -f PVC.yaml
 kubectl apply -f rabbitmq-deployment.yaml
 kubectl apply -f celery-worker-deployment.yaml
+```
+* Use kubectl get pods to get the name of the rabbitmq pod, then:
+```
 kubectl cp chunk_sizes.txt <rabbitmq>:app/data/chunk_sizes.txt
 kubectl apply -f celery-job.yaml
 ```
