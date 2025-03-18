@@ -78,12 +78,9 @@ for s in samples:
             # Number of events in this batch
             nIn = len(data) 
 
-            chunks = chunk_sizes['signal']
-
-            if chunks > nIn:
-                chunks = nIn
+            chunks = nIn//chunk_sizes['signal']
             index = np.arange(len(data))
-            split_index = np.array_split(index, chunks)
+            split_index = np.array_split(index, chunks if chunks >= 1 else 1)
             
             #Cuts
             lep_type = data['lep_type']
