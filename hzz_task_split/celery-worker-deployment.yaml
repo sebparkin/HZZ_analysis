@@ -30,7 +30,7 @@ kind: Deployment
 metadata:
   name: signal-worker
 spec:
-  replicas: 1  # Number of workers for parallel processing
+  replicas: 2 # Number of workers for parallel processing
   selector:
     matchLabels:
       app: signal-worker
@@ -84,7 +84,7 @@ kind: Deployment
 metadata:
   name: zz-worker
 spec:
-  replicas: 1  # Number of workers for parallel processing
+  replicas: 2  # Number of workers for parallel processing
   selector:
     matchLabels:
       app: zz-worker
