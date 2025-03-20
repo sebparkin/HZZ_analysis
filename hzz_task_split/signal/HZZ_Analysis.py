@@ -78,7 +78,8 @@ for s in samples:
             # Number of events in this batch
             nIn = len(data) 
 
-            chunks = nIn//chunk_sizes['signal']
+            #Calculating number of chunks and creating a split index
+            chunks = nIn//chunk_sizes['data']
             index = np.arange(len(data))
             split_index = np.array_split(index, chunks if chunks >= 1 else 1)
             
@@ -90,11 +91,10 @@ for s in samples:
             data = result.join()
             data = ak.concatenate(data)
             
-            #Invariant Mass
-            if chunks > len(data):
-                chunks = len(data)
+            #Redefining chunks for new data length
+            chunks = len(data)//chunk_sizes['data']
             index = np.arange(len(data))
-            split_index = np.array_split(index, chunks)
+            split_index = np.array_split(index, chunks if chunks >= 1 else 1)
 
             mass2 = group(calculate_mass.s(data[split_index[i]]) for i in range(chunks))
             result = mass2.apply_async()
