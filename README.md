@@ -28,4 +28,4 @@ kubectl cp <rabbitmq>:app/data/fig.png fig.png
 
 ## Information
 * hzz_task is an old version where each sample isnt analysed in parallel. It also uses a slower method of collection with celery.
-* The default worker replica is only 1, as otherwise there were memory problems on my computer.
+* add_test is a folder to test celery with splitting tasks between workers.
