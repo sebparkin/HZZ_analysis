@@ -20,6 +20,11 @@ kubectl apply -f celery-worker-deployment.yaml
 kubectl cp chunk_sizes.txt <rabbitmq>:app/data/chunk_sizes.txt
 kubectl apply -f celery-job.yaml
 ```
+* Once all jobs are completed, type this to save the plot and copy to your local filesystem:
+```
+kubectl apply -f saveplot.yaml
+kubectl cp <rabbitmq>:app/data/fig.png fig.png
+```
 
 ## Information
 * hzz_task is an old version where each sample isnt analysed in parallel. It also uses a slower method of collection with celery.
